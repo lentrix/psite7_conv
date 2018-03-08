@@ -1,0 +1,16 @@
+Election Flow
+- Preparatory State
+	Admins will select and indicate all the participants who are
+	eligible to become an officer.
+	Deliverable: List of members eligible for officer
+- Nomination State
+	Nomination page for all active members will be activated
+	and will accept nominations
+- On-Going State
+	Election Forms will be available on designated
+	devices where participants are able to vote up
+	to a designated number.
+	If the participant has already voted, the election
+	page will display to whom the participant has voted for.
+- Closed State
+	Election page will show the result of the election.
