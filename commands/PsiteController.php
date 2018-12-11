@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use yii\console\Controller;
+use yii;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -42,13 +43,13 @@ class PsiteController extends Controller
 
     public function actionPopulateMembers(){
         $members = [
-            ['bgnmp@yahoo.com','password123',2,'Smith','John','johnny','Quallcomm University'],
-            ['jndd@yahoo.com', 'password123',2,'Jane','Doe','jenny','University of the Lost'],
-            ['hnkk@gmail.com', 'password123',2,'Tim','Cooke','tim','Industrial University'],
-            ['bench@email.com','password123',2,'Benedict','Sanchez','benny','Nerd International College'],
-            ['graziel@email.com','password123',2,'Grace','Michaels','grazie','Bakersfield Institute'],
-            ['rant@email.com','password123',2,'Randall','Trentt','rant','St. Falcon University'],
-            ['georged@email.com','password123',2,'George','Daniels','george','Western College of Technology']
+            ['bgnmp@yahoo.com','password123',2,'Smith','John','johnny','Quallcomm University','Faculty'],
+            ['jndd@yahoo.com', 'password123',2,'Jane','Doe','jenny','University of the Lost', 'Faculty'],
+            ['hnkk@gmail.com', 'password123',2,'Tim','Cooke','tim','Industrial University', 'Dean'],
+            ['bench@email.com','password123',2,'Benedict','Sanchez','benny','Nerd International College', 'Chairman'],
+            ['graziel@email.com','password123',2,'Grace','Michaels','grazie','Bakersfield Institute','Dean'],
+            ['rant@email.com','password123',2,'Randall','Trentt','rant','St. Falcon University','Faculty'],
+            ['georged@email.com','password123',2,'George','Daniels','george','Western College of Technology','Faculty']
         ];
 
         foreach($members as $m) {
@@ -60,8 +61,40 @@ class PsiteController extends Controller
             $member->lname = $m[4];
             $member->nickname = $m[5];
             $member->school = $m[6];
+            $member->designation = $m[7];
             $member->save();
         }
         echo "Done.\n";
+    }
+
+    public function actionNonWinners(){
+
+        $winningIds =  (new \yii\db\Query())
+                    ->select(['participant_id'])
+                    ->from('raffle')
+                    ->where(['not', 'drawn IS NULL']);
+
+        $participants = \app\models\Participant::find()
+            ->where(['not in', 'id', $winningIds]);
+
+        echo var_dump($participants->all());
+    }
+
+    public function actionResetRaffles()
+    {
+        Yii::$app->db->createCommand('DELETE FROM raffle WHERE 1')
+            ->execute();
+        echo "Reset Raffles Data Complete.\n";
+    }
+
+    public function actionResetElection() 
+    {
+        echo "Flushing votes..\n";
+        Yii::$app->db->createCommand('DELETE FROM vote WHERE 1')->execute();
+        echo "Flushing candidates..\n";
+        Yii::$app->db->createCommand('DELETE FROM candidate WHERE 1')->execute();
+        echo "Deleting election..";
+        Yii::$app->db->createCommand('DELETE FROM election WHERE 1')->execute();
+        echo "\nElection Reset Complete.\n";
     }
 }

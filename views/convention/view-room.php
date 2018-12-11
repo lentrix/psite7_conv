@@ -17,6 +17,7 @@ JS;
 $this->registerJS($script);
 ?>
 <div>
+
 	<?php Modal::begin([
 		'header'=>'<h3>Update Room</h3>',
 		'id' => 'modal-create-member',

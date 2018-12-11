@@ -18,7 +18,7 @@ use Yii;
 class Election extends \yii\db\ActiveRecord
 {
     const STATUS_PREP = 0;
-    const STATUS_NOMIATION = 1;
+    const STATUS_NOMINATION = 1;
     const STATUS_ON_GOING = 2;
     const STATUS_CLOSED = 3;
     /**

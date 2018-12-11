@@ -69,6 +69,12 @@ class Candidate extends \yii\db\ActiveRecord
         return $this->hasOne(Participant::className(), ['id' => 'participant_id']);
     }
 
+    public function getMember()
+    {
+        return $this->hasOne(Member::className(), ['id'=>'member_id'])
+            ->via('participant');
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -52,3 +52,11 @@ body {
     font-size: 1.3em;
     font-weight: bold;
 }
+
+.confetti {
+    background-image: url('../images/confetti.gif');
+}
+
+.content {
+    min-height: 84vh;
+}

@@ -36,4 +36,17 @@ class HelloController extends Controller
     	$user->save();
     	echo "New user has been created.";
     }
+
+    public function actionNonWinners(){
+
+        $winningIds =  (new \yii\db\Query())
+                    ->select(['participant_id'])
+                    ->from('raffle')
+                    ->where(['not', 'drawn IS NULL'])
+                    ->all();
+
+        $participants = \app\models\Participant::find()->where(['not in', 'id', $actionNonWinners])->all();
+
+        echo var_dump($participants);
+    }
 }

@@ -62,9 +62,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if(Yii::$app->user->isGuest)
+        if(Yii::$app->user->isGuest){
             return $this->render('index');
-        else {
+        }else {
             $convention = \app\models\Convention::getActive();
             if(Yii::$app->user->identity->role==1) {
                 $member = new Member;
@@ -132,13 +132,11 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        $security = Yii::$app->security;
-        $string = Yii::$app->request->post('string');
-        $stringHash = '';
-        if (!is_null($string)) {
-            $stringHash = $security->generatePasswordHash($string);
-        }
+        
+        return $this->render('about');
+    }
 
-        return $this->render('about', ['stringHash'=>$stringHash]);
+    public function actionProgram() {
+        return $this->render('program');
     }
 }

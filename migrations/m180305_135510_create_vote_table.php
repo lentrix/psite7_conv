@@ -16,6 +16,7 @@ class m180305_135510_create_vote_table extends Migration
             'id' => $this->primaryKey(),
             'participant_id'=>$this->integer()->notNull(),
             'candidate_id'=>$this->integer()->notNull(),
+            'validation_hash'=>$this->string(191)
         ]);
 
         $this->createIndex('idx-vote-participant_id','vote','participant_id');

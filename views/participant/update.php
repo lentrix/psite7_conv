@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 
 $this->title = 'Update Participant';
 $this->params['breadcrumbs'][] = ['label' => 'Participants', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->member->fullName, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 
 $convention = \app\models\Convention::getActive();
@@ -29,7 +29,7 @@ $model->convention_id=$convention->id;
     	ArrayHelper::map($rooms, 'id','name'),
     	['prompt'=>'Stay Out']
     ) ?>
-
+    
     <?= $form->field($model, 'role')->dropDownList(
     	['Delegate'=>'Delegate', 'Presentor'=>'Presentor','Sponsor'=>'Sponsor'],
     	['prompt'=>'Select role']

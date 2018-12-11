@@ -154,4 +154,9 @@ class Member extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->hasMany(Participant::className(), ['member_id' => 'id']);
     }
+
+    public function getCurrentParticipation()
+    {
+        return Participant::findOne(['member_id'=>$this->id, 'convention_id'=>Convention::getActive()->id]);
+    }
 }

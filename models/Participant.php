@@ -75,8 +75,32 @@ class Participant extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getRaffles()
+    {
+        return $this->hasMany(Raffle::className(), ['participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getRoom()
     {
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
+    }
+
+    public static function getNominees() {
+        $conventionId = Convention::getActive()->id;
+        $sql1 = "SELECT * FROM participant WHERE eligible=1 AND id IN (SELECT DISTINCT nominated FROM participant WHERE convention_id=:conventionId)";
+        return Participant::findBySql($sql1, [':conventionId'=>$conventionId])
+         ->joinWith('member')
+         ->all();
+    }
+
+    public static function getEligibles() {
+        $conventionId = Convention::getActive()->id;
+        $sql1 = "SELECT * FROM participant WHERE eligible=1 AND NOT id IN (SELECT DISTINCT nominated FROM participant WHERE convention_id=:conventionId)";
+        return Participant::findBySql($sql1, [':conventionId'=>$conventionId])
+         ->joinWith('member')
+         ->all();
     }
 }

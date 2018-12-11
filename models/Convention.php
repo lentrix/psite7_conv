@@ -76,6 +76,15 @@ class Convention extends \yii\db\ActiveRecord
         return $this->hasMany(Room::className(), ['convention_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaffles()
+    {
+        return $this->hasMany(Raffle::className(), ['convention_id' => 'id']);
+    }
+
+
     public static function getActive()
     {
         return static::findOne(['active'=>1]);
