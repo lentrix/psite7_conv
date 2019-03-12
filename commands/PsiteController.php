@@ -37,8 +37,9 @@ class PsiteController extends Controller
         $member->lname = $lname;
         $member->fname = $fname;
         $member->nickname = $nickname;
-    	$member->save();
-    	echo "\nNew member has been created.";
+        $member->save();
+        
+    	echo "\nNew member has been created.\n";
     }
 
     public function actionPopulateMembers(){

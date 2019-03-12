@@ -21,6 +21,7 @@ use Yii;
  */
 class Member extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public $password_repeat;
     /**
      * @inheritdoc
      */
@@ -35,10 +36,11 @@ class Member extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['lname', 'fname', 'email', 'nickname', 'password'], 'required'],
+            [['lname', 'fname', 'email', 'nickname', 'password', 'password_repeat'], 'required'],
+            ['password_repeat','compare','compareAttribute'=>'password'],
             [['role'], 'integer'],
             [['lname', 'fname', 'designation', 'authKey'], 'string', 'max' => 45],
-            [['email', 'password'], 'string', 'max' => 255],
+            [['email', 'password', 'password_repeat'], 'string', 'max' => 255],
             [['school'], 'string', 'max' => 191],
             [['phone'], 'string', 'max' => 15],
             [['email'], 'unique'],
@@ -57,6 +59,7 @@ class Member extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'nickname' => 'Nickname',
             'email' => 'Email',
             'password' => 'Password',
+            'password_repeat' => "Repeat Password",
             'school' => 'School',
             'designation' => 'Designation',
             'phone' => 'Phone',
@@ -64,7 +67,6 @@ class Member extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'role' => 'Role',
             'active' => 'Status',
             'statusText' => 'Status'
-
         ];
     }
 

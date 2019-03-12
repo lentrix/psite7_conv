@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Member;
+use app\models\RegistrationForm;
 
 class SiteController extends Controller
 {
@@ -138,5 +139,22 @@ class SiteController extends Controller
 
     public function actionProgram() {
         return $this->render('program');
+    }
+
+    public function actionRegister() {
+        $model = new Member;
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->setPassword($model->password);
+            $model->password_repeat = $model->password;
+
+            $model->save();
+            
+            Yii::$app->user->login($model);
+
+            return $this->redirect(['site/index']);
+        }
+
+        return $this->render('register',['model'=>$model]);
     }
 }

@@ -38,7 +38,11 @@ $member = Yii::$app->user->identity;
 			<div class="panel-heading">
 				<span class="large-text">Participation Details</span>
 			</div>
+			
 			<div class="panel-body">
+
+			<?php if($member->currentParticipation) : ?>
+
 				<table class="table table-striped table-bordered">
 					<tr>
 						<th>Participation Role</th><td><?= $member->currentParticipation->role ?></td>
@@ -62,7 +66,12 @@ $member = Yii::$app->user->identity;
 						</td>
 					</tr>
 				</table>
+
+				<?php else: ?>
+					We are currently processing your registration.
+				<?php endif; ?>
 			</div>
+			
 		</div>
 	</div>
 </div>
